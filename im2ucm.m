@@ -34,6 +34,8 @@
 % ------------------------------------------------------------------------
 function [ucm2, ucms, times, O, E] = im2ucm(image)
 
+disp(['Input image to im2ucm ', num2str(size(image))]);
+
 % Adjust your paths and parameters in this file
 cob_params = set_params(image); 
 

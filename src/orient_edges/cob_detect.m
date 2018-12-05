@@ -22,6 +22,8 @@ mval = [122.67891434 116.66876762 104.00698793 134.0313 92.0228 117.3808];
 maxRes = 500;
 dim = size(data);
 flag = 0;
+disp(['dim is ',num2str(dim)])
+% TODO: Here is the resizing!!
 if ((dim(1)*dim(2))>maxRes^2)
     warning('Resizing image to avoid large memory consumption!!')
     data = imresize(data,[maxRes,maxRes]);

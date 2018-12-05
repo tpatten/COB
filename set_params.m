@@ -23,16 +23,17 @@ if ~evalin('base','exist(''cob_params'',''var'')')
     disp('Setting COB parameters')
     
     % For CPU mode, set to 0
-    cob_params.useGPU = 1;
+    cob_params.useGPU = 0;
     
     % Set the ID of your GPU (default 0)
     cob_params.gpu_id = 0;
     
     % Specify /path/to/caffe (needed for matcaffe)
-    cob_params.caffe_path = '/path/to/caffe/matlab/';
+    cob_params.caffe_path = '/home/tpatten/Code/hed/matlab';
     if ~exist(cob_params.caffe_path,'dir')
         error(['Caffe path ''' cob_params.caffe_path ''' not found'])
     end
+    genpath(cob_params.caffe_path)
     addpath(genpath(cob_params.caffe_path));
     
     % Network model
@@ -40,7 +41,15 @@ if ~evalin('base','exist(''cob_params'',''var'')')
     % Network weights
     cob_params.weights = fullfile(cob_root,'models','COB_PASCALContext_trainval.caffemodel');
     
+    % Models:
+    % COB_PASCALContext_train       rgb input
+    % COB_PASCALContext_trainval    rgb input
+    % COB_BSDS500                   rgb input
+    % 
+    % COB_NYUD-v2_RGBHHA            rgb + hha features
+    
     if size(im,3)==6
+        disp('Input image has 6 dimensions, using COB_NYUD-v2_RGBHHA.caffemode');
         cob_params.model = fullfile(cob_root,'models','deploy_rgbhha.prototxt');
         cob_params.weights = fullfile(cob_root,'models','COB_NYUD-v2_RGBHHA.caffemodel');
     end
